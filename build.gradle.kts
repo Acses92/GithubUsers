@@ -1,7 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.1.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.0" apply false
-    id("com.android.library") version "8.1.0" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.8.0" apply false
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.android) version ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsVersion.androidGradleVersion apply false
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin) version ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsVersion.kotlinVersion apply false
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlinJvm) version ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsVersion.kotlinVersion apply false
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary) version ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsVersion.androidGradleVersion apply false
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt) version ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsVersion.hiltVersion apply false
 }

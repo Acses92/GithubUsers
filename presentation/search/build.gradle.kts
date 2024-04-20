@@ -1,17 +1,39 @@
+import ru.kravchenkoanatoly.githubusers.Dependencies
+import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
+
+
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
 }
 
 android {
-    namespace = "ru.kravchenkoanatoly.githubusers.mylibrary"
-    compileSdk = 33
+    namespace = ru.kravchenkoanatoly.githubusers.ProjectConfig.namespace()
+    compileSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidMinSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = ru.kravchenkoanatoly.githubusers.ProjectConfig.testRunner
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile(ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.androidOptimize),
+                ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.rules
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
+        targetCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion.toString()
     }
 
     buildTypes {
@@ -23,21 +45,17 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
+    implementation(project(dep(ru.kravchenkoanatoly.githubusers.Modules.Common.root)))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Dependencies.AndroidX.androidCore)
+    implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.UI.material)
+    testImplementation(Dependencies.Test.jUnit)
+    androidTestImplementation(Dependencies.Test.jUnitExt)
+    androidTestImplementation(Dependencies.Test.espresso)
+    implementation(Dependencies.Hilt.hiltAndroid)
+    kapt(Dependencies.Hilt.hiltCompiler)
 }
