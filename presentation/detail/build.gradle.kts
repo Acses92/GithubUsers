@@ -13,7 +13,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.kravchenkoanatoly.detail"
+    namespace = "ru.kravchenkoanatoly.githubusers.detail"
     compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
