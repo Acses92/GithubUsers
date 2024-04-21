@@ -1,17 +1,42 @@
+import ru.kravchenkoanatoly.githubusers.Dependencies
+import ru.kravchenkoanatoly.githubusers.Modules
+import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
+import ru.kravchenkoanatoly.githubusers.ProjectConfig
+
+
+
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
 }
 
 android {
     namespace = "ru.kravchenkoanatoly.detail"
-    compileSdk = 33
+    compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = ProjectConfig.ConfigData.androidMinSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = ProjectConfig.testRunner
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile(ProjectConfig.ProGuardSettings.androidOptimize),
+                ProjectConfig.ProGuardSettings.rules
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = ProjectConfig.javaVersion
+        targetCompatibility = ProjectConfig.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = ProjectConfig.javaVersion.toString()
     }
 
     buildTypes {
@@ -23,21 +48,24 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
 }
 
 dependencies {
+    implementation(project(dep(Modules.Common.root)))
+    implementation(project(dep(Modules.Root.domain)))
+    implementation(project(dep(Modules.Root.data)))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Dependencies.AndroidX.androidCore)
+    implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.UI.material)
+    testImplementation(Dependencies.Test.jUnit)
+    androidTestImplementation(Dependencies.Test.jUnitExt)
+    androidTestImplementation(Dependencies.Test.espresso)
+    implementation(Dependencies.Hilt.hiltAndroid)
+    kapt(Dependencies.Hilt.hiltCompiler)
 }

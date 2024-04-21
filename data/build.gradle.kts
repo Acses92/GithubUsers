@@ -1,43 +1,72 @@
+import ru.kravchenkoanatoly.githubusers.Dependencies
+import ru.kravchenkoanatoly.githubusers.Modules
+import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
+import ru.kravchenkoanatoly.githubusers.ProjectConfig
+
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
 }
 
 android {
-    namespace = "ru.kravchenkoanatoly.githubusers.data"
-    compileSdk = 33
+    namespace = ProjectConfig.namespace()
+    compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = ProjectConfig.ConfigData.androidMinSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = ProjectConfig.testRunner
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(ProjectConfig.ProGuardSettings.androidOptimize),
+                ProjectConfig.ProGuardSettings.rules
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = ProjectConfig.javaVersion
+        targetCompatibility = ProjectConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = ProjectConfig.javaVersion.toString()
     }
 }
 
 dependencies {
+    implementation(project(dep(Modules.Root.domain)))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //core
+    implementation(Dependencies.AndroidX.androidCore)
+    implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.UI.material)
+
+    //retrofit
+    implementation(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.converterMoshi)
+    implementation(Dependencies.Debuging.okhttpLoging)
+
+    //hilt
+    implementation(Dependencies.Hilt.hiltAndroid)
+    kapt(Dependencies.Hilt.hiltCompiler)
+
+    //room
+    implementation(Dependencies.Room.runtime)
+    implementation(Dependencies.Room.ktx)
+    kapt(Dependencies.Room.compiler)
+
+    //moshi
+    implementation(Dependencies.Moshi.moshi)
+    implementation(Dependencies.Moshi.moshiAdapters)
+    implementation(Dependencies.Moshi.moshiKotlin)
+    kapt(Dependencies.Moshi.moshiCodegen)
+
+    testImplementation(Dependencies.Test.jUnit)
+    androidTestImplementation(Dependencies.Test.jUnitExt)
+    androidTestImplementation(Dependencies.Test.espresso)
 }
