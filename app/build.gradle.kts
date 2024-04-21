@@ -1,35 +1,36 @@
 import ru.kravchenkoanatoly.githubusers.Dependencies
 import ru.kravchenkoanatoly.githubusers.Modules
 import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
+import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 plugins {
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.android)
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
+    id(ProjectConfig.PluginsIds.android)
+    id(ProjectConfig.PluginsIds.kotlin)
+    id(ProjectConfig.PluginsIds.kapt)
+    id(ProjectConfig.PluginsIds.hilt)
 }
 
 
 android {
-    namespace = ru.kravchenkoanatoly.githubusers.ProjectConfig.namespace()
-    compileSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.compileSdk
+    namespace = ProjectConfig.namespace()
+    compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        applicationId = ru.kravchenkoanatoly.githubusers.ProjectConfig.applicationId
-        minSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidMinSdk
-        targetSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidTargetSdk
-        versionCode = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.versionCode
-        versionName = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.versionName
+        applicationId = ProjectConfig.applicationId
+        minSdk = ProjectConfig.ConfigData.androidMinSdk
+        targetSdk = ProjectConfig.ConfigData.androidTargetSdk
+        versionCode = ProjectConfig.ConfigData.versionCode
+        versionName = ProjectConfig.ConfigData.versionName
 
-        testInstrumentationRunner = ru.kravchenkoanatoly.githubusers.ProjectConfig.testRunner
+        testInstrumentationRunner = ProjectConfig.testRunner
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile(ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.androidOptimize),
-                ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.rules
+                getDefaultProguardFile(ProjectConfig.ProGuardSettings.androidOptimize),
+                ProjectConfig.ProGuardSettings.rules
             )
         }
     }
@@ -48,7 +49,10 @@ android {
 
 dependencies {
     implementation(project(dep(Modules.Common.root)))
-
+    implementation(project(dep(Modules.Root.data)))
+    implementation(project(dep(Modules.Root.domain)))
+    implementation(project(dep(Modules.Prenentation.detail)))
+    implementation(project(dep(Modules.Prenentation.search)))
 
     //core
     implementation(Dependencies.AndroidX.androidCore)
@@ -71,7 +75,6 @@ dependencies {
 
     //hilt
     implementation(Dependencies.Hilt.hiltAndroid)
-    //implementation(project(mapOf("path" to ":feature:mainScreenFeature")))
     kapt(Dependencies.Hilt.hiltCompiler)
 
     //room
@@ -80,4 +83,5 @@ dependencies {
     implementation(Dependencies.Debuging.timber)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)}
+    androidTestImplementation(Dependencies.Test.espresso)
+}

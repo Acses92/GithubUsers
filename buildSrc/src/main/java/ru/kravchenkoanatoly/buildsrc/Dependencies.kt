@@ -3,7 +3,7 @@ package ru.kravchenkoanatoly.githubusers
 object Dependencies {
 
     object Core {
-        private const val gradleVersion = "8.1.0"
+        private const val gradleVersion = "8.7.0"
         private const val coroutineAndroidVersion = "1.3.9"
         private const val coroutinesVersion = "1.7.3"
 

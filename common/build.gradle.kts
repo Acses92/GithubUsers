@@ -1,37 +1,43 @@
 import ru.kravchenkoanatoly.githubusers.Dependencies
+import ru.kravchenkoanatoly.githubusers.Modules
+import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
+import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 plugins {
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
-    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ProjectConfig.PluginsIds.androidLibrary)
+    id(ProjectConfig.PluginsIds.kotlin)
 }
 
 
 android {
-    namespace = ru.kravchenkoanatoly.githubusers.ProjectConfig.namespace()
-    compileSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.compileSdk
+    namespace = ProjectConfig.namespace()
+    compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidMinSdk
+        minSdk = ProjectConfig.ConfigData.androidMinSdk
 
-        testInstrumentationRunner = ru.kravchenkoanatoly.githubusers.ProjectConfig.testRunner
+        testInstrumentationRunner = ProjectConfig.testRunner
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile(ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.androidOptimize),
-                ru.kravchenkoanatoly.githubusers.ProjectConfig.ProGuardSettings.rules)
+            proguardFiles(getDefaultProguardFile(ProjectConfig.ProGuardSettings.androidOptimize),
+                ProjectConfig.ProGuardSettings.rules)
         }
     }
     compileOptions {
-        sourceCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
-        targetCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
+        sourceCompatibility = ProjectConfig.javaVersion
+        targetCompatibility = ProjectConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion.toString()
+        jvmTarget = ProjectConfig.javaVersion.toString()
     }}
 
 dependencies {
+    implementation(project(dep(Modules.Root.data)))
+    implementation(project(dep(Modules.Root.domain)))
+
     implementation(Dependencies.AndroidX.androidCore)
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.UI.material)

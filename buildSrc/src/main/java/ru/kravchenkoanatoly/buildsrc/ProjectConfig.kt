@@ -18,15 +18,15 @@ object ProjectConfig {
 
     object ConfigData{
         const val androidMinSdk = 24
-        const val androidTargetSdk = 34
-        const val compileSdk = 34
+        const val androidTargetSdk = 33
+        const val compileSdk = 33
         const val versionCode = 1
         const val versionName = "1"
     }
 
     object PluginsVersion{
         const val androidGradleVersion = "8.1.0"
-        const val kotlinVersion = "1.9.0"
+        const val kotlinVersion = "1.9.23"
         const val hiltVersion = "2.48"
         const val benManesVersion = "0.42.0"
         const val gmsVersion = "4.3.15"

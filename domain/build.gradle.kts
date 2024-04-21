@@ -1,6 +1,9 @@
+import ru.kravchenkoanatoly.githubusers.ProjectConfig
+
+
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
+    id(ProjectConfig.PluginsIds.javaLibrary)
+    id(ProjectConfig.PluginsIds.kotlinJvm)
 }
 
 java {
