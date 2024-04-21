@@ -11,10 +11,10 @@ sealed class Modules(val root: String?, val name: String) {
         }
     }
 
-    class Prenentation(name: String): Modules("presentation", name) {
+    class Presentation(name: String): Modules("presentation", name) {
         companion object {
-            val search = Prenentation("search")
-            val detail = Prenentation("detail")
+            val search = Presentation("search")
+            val detail = Presentation("detail")
         }
     }
 

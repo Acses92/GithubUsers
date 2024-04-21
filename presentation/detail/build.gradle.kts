@@ -13,11 +13,11 @@ plugins {
 }
 
 android {
-    namespace = ru.kravchenkoanatoly.githubusers.ProjectConfig.namespace()
-    compileSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.compileSdk
+    namespace = "ru.kravchenkoanatoly.detail"
+    compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidMinSdk
+        minSdk = ProjectConfig.ConfigData.androidMinSdk
 
         testInstrumentationRunner = ProjectConfig.testRunner
     }
@@ -32,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
-        targetCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
+        sourceCompatibility = ProjectConfig.javaVersion
+        targetCompatibility = ProjectConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion.toString()
+        jvmTarget = ProjectConfig.javaVersion.toString()
     }
 
     buildTypes {
@@ -48,6 +48,11 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
 }
 
 dependencies {

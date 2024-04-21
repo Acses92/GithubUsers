@@ -10,7 +10,7 @@ plugins {
 
 
 android {
-    namespace = ProjectConfig.namespace()
+    namespace = "ru.kravchenkoanatoly.githubusers.common"
     compileSdk = ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {

@@ -1,4 +1,4 @@
-package ru.kravchenkoanatoly.githubusers.mylibrary
+package ru.kravchenkoanatoly.githubusers.search
 
 import org.junit.Test
 

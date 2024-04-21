@@ -1,4 +1,4 @@
-package ru.kravchenkoanatoly.githubusers.mylibrary
+package ru.kravchenkoanatoly.githubusers.search
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

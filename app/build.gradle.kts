@@ -50,8 +50,8 @@ dependencies {
     implementation(project(dep(Modules.Common.root)))
     implementation(project(dep(Modules.Root.data)))
     implementation(project(dep(Modules.Root.domain)))
-    implementation(project(dep(Modules.Prenentation.search)))
-    implementation(project(dep(Modules.Prenentation.detail)))
+    implementation(project(dep(Modules.Presentation.search)))
+    implementation(project(dep(Modules.Presentation.detail)))
 
     //core
     implementation(Dependencies.AndroidX.androidCore)
