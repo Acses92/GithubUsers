@@ -5,20 +5,20 @@ import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 
 plugins {
-    id(ProjectConfig.PluginsIds.androidLibrary)
-    id(ProjectConfig.PluginsIds.kotlin)
-    id(ProjectConfig.PluginsIds.hilt)
-    id(ProjectConfig.PluginsIds.kapt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
 }
 
 android {
-    namespace = ProjectConfig.namespace()
-    compileSdk = ProjectConfig.ConfigData.compileSdk
+    namespace = ru.kravchenkoanatoly.githubusers.ProjectConfig.namespace()
+    compileSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.compileSdk
 
     defaultConfig {
-        minSdk = ProjectConfig.ConfigData.androidMinSdk
+        minSdk = ru.kravchenkoanatoly.githubusers.ProjectConfig.ConfigData.androidMinSdk
 
-        testInstrumentationRunner = ProjectConfig.testRunner
+        testInstrumentationRunner = ru.kravchenkoanatoly.githubusers.ProjectConfig.testRunner
     }
 
     buildTypes {
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = ProjectConfig.javaVersion
-        targetCompatibility = ProjectConfig.javaVersion
+        sourceCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
+        targetCompatibility = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = ProjectConfig.javaVersion.toString()
+        jvmTarget = ru.kravchenkoanatoly.githubusers.ProjectConfig.javaVersion.toString()
     }
 
     buildTypes {

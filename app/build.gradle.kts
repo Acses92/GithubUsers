@@ -4,12 +4,11 @@ import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
 import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 plugins {
-    id(ProjectConfig.PluginsIds.android)
-    id(ProjectConfig.PluginsIds.kotlin)
-    id(ProjectConfig.PluginsIds.kapt)
-    id(ProjectConfig.PluginsIds.hilt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.android)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
 }
-
 
 android {
     namespace = ProjectConfig.namespace()
@@ -35,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = ProjectConfig.javaVersion
+        targetCompatibility = ProjectConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = ProjectConfig.javaVersion.toString()
     }
     buildFeatures {
         viewBinding = true
@@ -51,8 +50,8 @@ dependencies {
     implementation(project(dep(Modules.Common.root)))
     implementation(project(dep(Modules.Root.data)))
     implementation(project(dep(Modules.Root.domain)))
-    implementation(project(dep(Modules.Prenentation.detail)))
     implementation(project(dep(Modules.Prenentation.search)))
+    implementation(project(dep(Modules.Prenentation.detail)))
 
     //core
     implementation(Dependencies.AndroidX.androidCore)

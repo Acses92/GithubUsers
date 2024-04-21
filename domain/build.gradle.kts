@@ -2,11 +2,11 @@ import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 
 plugins {
-    id(ProjectConfig.PluginsIds.javaLibrary)
-    id(ProjectConfig.PluginsIds.kotlinJvm)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.javaLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlinJvm)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = ProjectConfig.javaVersion
+    targetCompatibility = ProjectConfig.javaVersion
 }

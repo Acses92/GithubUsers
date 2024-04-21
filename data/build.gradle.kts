@@ -4,10 +4,10 @@ import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
 import ru.kravchenkoanatoly.githubusers.ProjectConfig
 
 plugins {
-    id(ProjectConfig.PluginsIds.androidLibrary)
-    id(ProjectConfig.PluginsIds.kotlin)
-    id(ProjectConfig.PluginsIds.kapt)
-    id(ProjectConfig.PluginsIds.hilt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.androidLibrary)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kotlin)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.kapt)
+    id(ru.kravchenkoanatoly.githubusers.ProjectConfig.PluginsIds.hilt)
 }
 
 android {
