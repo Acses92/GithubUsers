@@ -23,7 +23,7 @@ class LaunchActivity : AppCompatActivity() {
     private fun getUserInfo(){
         viewModel.getUserInfo()
         viewModel.getUserListSearch()
-        //viewModel.getUserFollowers()
+        viewModel.getUserFollowers()
     }
 
     private fun navigationSetup() {

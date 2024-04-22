@@ -32,7 +32,7 @@ data class GithubUserSearchDto(
     @Json(name = "reposUrl")
     val reposUrl: String?,
     @Json(name = "score")
-    val score: Double,
+    val score: Double?,
     @Json(name = "site_admin")
     val siteAdmin: Boolean?,
     @Json(name = "starred_url")

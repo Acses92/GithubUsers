@@ -25,9 +25,6 @@ class GithubUsersRepositoryImpl @Inject constructor(
         .map { dto -> dto.toDomain() }
         .catch { Timber.tag(GITHUB_USER_REPOSITORY_TAG).d(it) }
 
-    /**
-     * необходим кастомный адаптре для корректной работы с получаемым списком
-     */
     override fun getUserFollowers(user: String): Flow<Int> = flow {
         emit(githubApi.getUserFollower(user))
     }

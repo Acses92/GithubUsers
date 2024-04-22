@@ -16,7 +16,7 @@ data class GithubUserSearchDomain(
     val organizationsUrl: String?,
     val receivedEventsUrl: String?,
     val reposUrl: String?,
-    val score: Double,
+    val score: Double?,
     val siteAdmin: Boolean?,
     val starredUrl: String?,
     val subscriptionsUrl: String?,
