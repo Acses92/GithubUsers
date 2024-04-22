@@ -15,7 +15,7 @@ class LaunchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LaunchActivityBinding.inflate(layoutInflater)
-        setContentView(R.layout.launch_activity)
+        setContentView(binding.root)
         navigationSetup()
         getUserInfo()
     }
