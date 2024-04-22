@@ -1,4 +1,4 @@
-package ru.kravchenkoanatoly.detail
+package ru.kravchenkoanatoly.githubusers
 
 import org.junit.Test
 
