@@ -16,7 +16,7 @@ interface GithubApi {
     @GET("/users/{user}/followers")
     suspend fun getUserFollower(
         @Path("user") user: String
-    ): FollowersResponseDto
+    ): List<UsersSearchResponseDto>
 
 
     @GET("/users/{user}")

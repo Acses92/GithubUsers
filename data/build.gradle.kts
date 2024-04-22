@@ -66,6 +66,7 @@ dependencies {
     implementation(Dependencies.Moshi.moshiKotlin)
     kapt(Dependencies.Moshi.moshiCodegen)
 
+    implementation(Dependencies.Debuging.timber)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.jUnitExt)
     androidTestImplementation(Dependencies.Test.espresso)

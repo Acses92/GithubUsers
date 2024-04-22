@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
 
 interface GithubSearchRepository {
-    fun searchUser(userRequest: String): Flow<GithubUserSearchDomain>
+    fun searchUser(userRequest: String): Flow<List<GithubUserSearchDomain?>>
 }
