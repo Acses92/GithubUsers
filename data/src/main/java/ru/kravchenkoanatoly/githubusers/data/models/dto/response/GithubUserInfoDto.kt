@@ -48,29 +48,29 @@ data class GithubUserInfoDto(
     @Json(name = "name")
     val name: Any?,
     @Json(name = "node_id")
-    val nodeId: String,
+    val nodeId: String?,
     @Json(name = "organizations_url")
-    val organizationsUrl: String,
+    val organizationsUrl: String?,
     @Json(name = "public_gists")
-    val publicGists: Int,
+    val publicGists: Int?,
     @Json(name = "public_repos")
-    val publicRepos: Int,
+    val publicRepos: Int?,
     @Json(name = "received_events_url")
-    val receivedEventsUrl: String,
+    val receivedEventsUrl: String?,
     @Json(name = "repos_url")
-    val reposUrl: String,
+    val reposUrl: String?,
     @Json(name = "site_admin")
-    val siteAdmin: Boolean,
+    val siteAdmin: Boolean?,
     @Json(name = "starred_url")
-    val starredUrl: String,
+    val starredUrl: String?,
     @Json(name = "subscriptions_url")
-    val subscriptionsUrl: String,
+    val subscriptionsUrl: String?,
     @Json(name = "twitter_username")
-    val twitterUsername: Any,
+    val twitterUsername: Any?,
     @Json(name = "type")
-    val type: String,
+    val type: String?,
     @Json(name = "updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
     @Json(name = "url")
-    val url: String
+    val url: String?
 )
