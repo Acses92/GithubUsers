@@ -9,7 +9,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import ru.kravchenkoanatoly.githubusers.BuildConfig
+import ru.kravchenkoanatoly.githubusers.common.AppConstants
+import ru.kravchenkoanatoly.githubusers.data.sources.remote.GithubApi
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -50,10 +53,14 @@ object NetworkModules {
         client: OkHttpClient,
         moshi: Moshi
     ): Retrofit = getRetrofit(
-        baseUrl = "",
+        baseUrl = AppConstants.BASE_URL,
         client = client,
         moshi = moshi
     )
+
+    @Provides
+    @Singleton
+    fun provideGithubApi(retrofit: Retrofit): GithubApi = retrofit.create()
 
     private fun getRetrofit(baseUrl: String, client: OkHttpClient, moshi: Moshi): Retrofit =
             Retrofit.Builder()

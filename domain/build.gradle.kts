@@ -1,4 +1,7 @@
+import ru.kravchenkoanatoly.githubusers.Dependencies
+import ru.kravchenkoanatoly.githubusers.Modules
 import ru.kravchenkoanatoly.githubusers.ProjectConfig
+import ru.kravchenkoanatoly.githubusers.ProjectConfig.dep
 
 
 plugins {
@@ -9,4 +12,10 @@ plugins {
 java {
     sourceCompatibility = ProjectConfig.javaVersion
     targetCompatibility = ProjectConfig.javaVersion
+}
+
+dependencies{
+
+    implementation(Dependencies.Hilt.hiltInject)
+    implementation(Dependencies.Core.coroutineCore)
 }
