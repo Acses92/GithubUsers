@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.kravchenkoanatoly.githubusers.BuildConfig
+import ru.kravchenkoanatoly.githubusers.common.AppConstants
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -50,7 +51,7 @@ object NetworkModules {
         client: OkHttpClient,
         moshi: Moshi
     ): Retrofit = getRetrofit(
-        baseUrl = "",
+        baseUrl = AppConstants.BASE_URL,
         client = client,
         moshi = moshi
     )
