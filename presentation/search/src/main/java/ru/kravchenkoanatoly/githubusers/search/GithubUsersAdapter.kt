@@ -46,6 +46,7 @@ class GithubUsersAdapter(
             val item = getItem(position)
             userNameTextView.text = item.login
             onUserFollowers(item)
+            numberOfFollowers.text = item.followersNumber.toString()
             Glide.with(context).load(item.avatarUrl).circleCrop()
                 .error(R.drawable.avatar_placeholder)
                 .placeholder(R.drawable.avatar_placeholder).into(avatarImageView)

@@ -51,7 +51,7 @@ class SearchViewModel @Inject constructor(
 
     fun getUserFollowers(user: GithubUserSearchDomain){
         viewModelScope.launch {
-            user.login?.let {
+            user.login.let {
                 Timber.tag(SEARCH_VIEW_MODEL_TAG).d("username = $it")
                 githubUserUseCase.getUserFollowers(it)
                     .flowOn(Dispatchers.IO)

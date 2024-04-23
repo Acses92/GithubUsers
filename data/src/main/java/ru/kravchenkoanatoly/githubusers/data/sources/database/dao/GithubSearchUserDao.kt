@@ -20,4 +20,7 @@ interface GithubSearchUserDao {
 
     @Query("SELECT * FROM github_search_user")
     fun subscribeGithubUserSearch(): Flow<List<GithubSearchUserEntity>>
+
+    @Query("UPDATE github_search_user SET followersNumber =:followers WHERE login =:userName")
+    fun updateFollower(userName: String, followers: Int)
 }

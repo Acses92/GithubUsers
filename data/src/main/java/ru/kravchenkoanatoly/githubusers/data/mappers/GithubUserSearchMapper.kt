@@ -9,7 +9,7 @@ fun GithubUserSearchDto.toDomain(): GithubUserSearchDomain = GithubUserSearchDom
     followersUrl = followersUrl,
     id = id,
     login = login,
-    followersNumber = 0
+    followersNumber = 0,
 )
 
 fun GithubUserSearchDto.toEntity(): GithubSearchUserEntity = GithubSearchUserEntity(
@@ -17,7 +17,7 @@ fun GithubUserSearchDto.toEntity(): GithubSearchUserEntity = GithubSearchUserEnt
     followersUrl = followersUrl,
     id = id,
     login = login,
-    followersNumber = 0
+    followersNumber = 0,
 )
 
 fun GithubSearchUserEntity.toDomain(): GithubUserSearchDomain = GithubUserSearchDomain(
@@ -25,5 +25,5 @@ fun GithubSearchUserEntity.toDomain(): GithubUserSearchDomain = GithubUserSearch
     followersUrl = followersUrl,
     id = id,
     login = login,
-    followersNumber = followersNumber
+    followersNumber = followersNumber,
 )
