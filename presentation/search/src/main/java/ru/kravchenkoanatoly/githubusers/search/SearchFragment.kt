@@ -27,7 +27,7 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -85,7 +85,10 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
     }
 
     private fun setupRecyclerAdapter() {
-        githubUsersAdapter = GithubUsersAdapter()
+        githubUsersAdapter = GithubUsersAdapter(
+            onUserClicked = viewModel::onUserClicked,
+            onUserFollowers = viewModel::getUserFollowers
+            )
         with(binding.githubUserRecyclerView) {
             adapter = githubUsersAdapter
             layoutManager = LinearLayoutManager(context)
@@ -96,22 +99,21 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
     private fun searchViewListener() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(userName: String?): Boolean{
-                /*
                 if(userName!=null){
                     viewModel.getUserListSearch(userName)
-                }*/
+                }
                 return false
             }
-
             /**
              * реал-тайм поиск. так делать правильнее, но натыкаемся на рэйт лимиты
              * при этом, для авторизованных пользователей, они меньше
              * в реальном проекте это решается на уровне api
              */
             override fun onQueryTextChange(userName: String?): Boolean {
+                /*
                 if(userName!=null){
                     viewModel.getUserListSearch(userName)
-                }
+                }*/
                 return false
             }
 

@@ -16,12 +16,14 @@ import ru.kravchenkoanatoly.githubusers.common.models.ReloadableData
 import ru.kravchenkoanatoly.githubusers.common.models.Status
 import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
 import ru.kravchenkoanatoly.githubusers.useCases.GithubSearchUseCase
+import ru.kravchenkoanatoly.githubusers.useCases.GithubUserUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val githubSearchUseCase: GithubSearchUseCase
+    private val githubSearchUseCase: GithubSearchUseCase,
+    private val githubUserUseCase: GithubUserUseCase
 ) : ViewModel() {
 
     private val _userListState = MutableStateFlow(
@@ -31,7 +33,6 @@ class SearchViewModel @Inject constructor(
         )
     )
     val userListState = _userListState.asStateFlow()
-
 
     fun getUserListSearch(userName: String){
         viewModelScope.launch {
@@ -45,6 +46,26 @@ class SearchViewModel @Inject constructor(
                 .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
                 .collect()
         }
+    }
+
+    fun getUserFollowers(user: GithubUserSearchDomain){
+        viewModelScope.launch {
+            user.login?.let {
+                Timber.tag(SEARCH_VIEW_MODEL_TAG).d("username = $it")
+                githubUserUseCase.getUserFollowers(it)
+                    .flowOn(Dispatchers.IO)
+                    .onEach {
+                        Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString())
+
+                    }
+                    .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
+                    .collect()
+            }
+        }
+    }
+
+    fun onUserClicked(user: GithubUserSearchDomain){
+
     }
 
     companion object{

@@ -9,7 +9,10 @@ import com.bumptech.glide.Glide
 import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
 import ru.kravchenkoanatoly.githubusers.search.databinding.GithubUserItemBinding
 
-class GithubUsersAdapter(): ListAdapter<GithubUserSearchDomain, GithubUsersAdapter.ViewHolder>(
+class GithubUsersAdapter(
+    private val onUserClicked: (GithubUserSearchDomain) -> Unit,
+    private val onUserFollowers: (GithubUserSearchDomain) -> Unit,
+): ListAdapter<GithubUserSearchDomain, GithubUsersAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<GithubUserSearchDomain>() {
         override fun areContentsTheSame(
             oldItem: GithubUserSearchDomain,
@@ -42,6 +45,7 @@ class GithubUsersAdapter(): ListAdapter<GithubUserSearchDomain, GithubUsersAdapt
         with(holder.binding){
             val item = getItem(position)
             userNameTextView.text = item.login
+            onUserFollowers(item)
             Glide.with(context).load(item.avatarUrl).circleCrop()
                 .error(R.drawable.avatar_placeholder)
                 .placeholder(R.drawable.avatar_placeholder).into(avatarImageView)
