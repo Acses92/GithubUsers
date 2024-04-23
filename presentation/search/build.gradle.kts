@@ -71,4 +71,6 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espresso)
     implementation(Dependencies.Hilt.hiltAndroid)
     kapt(Dependencies.Hilt.hiltCompiler)
+    implementation(Dependencies.UI.glide)
+    implementation(Dependencies.Debuging.timber)
 }

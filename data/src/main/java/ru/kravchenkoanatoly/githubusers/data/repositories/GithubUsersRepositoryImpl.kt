@@ -3,7 +3,10 @@ package ru.kravchenkoanatoly.githubusers.data.repositories
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import ru.kravchenkoanatoly.githubusers.data.mappers.toDomain
@@ -23,6 +26,7 @@ class GithubUsersRepositoryImpl @Inject constructor(
         emit(githubApi.getUserInfo(user))
     }
         .map { dto -> dto.toDomain() }
+        ///.flatMapConcat { getUserResult(it) }
         .catch { Timber.tag(GITHUB_USER_REPOSITORY_TAG).d(it) }
 
     override fun getUserFollowers(user: String): Flow<Int> = flow {
@@ -30,6 +34,11 @@ class GithubUsersRepositoryImpl @Inject constructor(
     }
         .map {it.size}
         .catch { Timber.tag(GITHUB_USER_REPOSITORY_TAG).d("error = $it") }
+
+    override fun getUserResult(user: GithubUserInfoDomain): Flow<GithubUserInfoDomain>   {
+        val folowers = user.login?.let { getUserFollowers(it) }
+        return flowOf()
+    }
 
     companion object {
         const val GITHUB_USER_REPOSITORY_TAG = "GITHUB_USER_REPOSITORY_TAG"

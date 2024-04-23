@@ -1,9 +1,9 @@
 package ru.kravchenkoanatoly.githubusers.models
 
+import java.io.Serializable
+
 data class GithubUserSearchDomain(
-
     val avatarUrl: String?,
-
     val eventsUrl: String?,
     val followersUrl: String?,
     val followingUrl: String?,
@@ -22,5 +22,4 @@ data class GithubUserSearchDomain(
     val subscriptionsUrl: String?,
     val type: String?,
     val url: String?
-
-)
+): Serializable

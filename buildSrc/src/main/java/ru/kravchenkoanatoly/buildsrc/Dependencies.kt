@@ -33,9 +33,11 @@ object Dependencies {
     object UI {
         private const val materialVersion = "1.9.0"
         private const val constraintLayoutVersion = "2.1.4"
+        private const val glideVersion = "4.16.0"
 
         const val material = "com.google.android.material:material:$materialVersion"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+        const val glide = "com.github.bumptech.glide:glide:$glideVersion"
     }
 
     object Navigation {

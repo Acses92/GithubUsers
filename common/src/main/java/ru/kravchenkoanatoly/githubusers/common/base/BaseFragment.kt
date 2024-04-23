@@ -1,4 +1,4 @@
-package ru.kravchenkoanatoly.githubusers.common
+package ru.kravchenkoanatoly.githubusers.common.base
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import ru.kravchenkoanatoly.githubusers.common.models.NavCommand
 
 abstract class BaseFragment(@LayoutRes private val layoutRes: Int): Fragment(layoutRes)  {
     protected fun navigate(navCommand: NavCommand){

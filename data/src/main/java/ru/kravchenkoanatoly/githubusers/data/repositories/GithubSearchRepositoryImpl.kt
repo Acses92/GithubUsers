@@ -1,6 +1,5 @@
 package ru.kravchenkoanatoly.githubusers.data.repositories
 
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
