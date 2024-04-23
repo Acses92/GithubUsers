@@ -15,16 +15,10 @@ class LaunchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LaunchActivityBinding.inflate(layoutInflater)
-        setContentView(R.layout.launch_activity)
+        setContentView(binding.root)
         navigationSetup()
-        getUserInfo()
     }
 
-    private fun getUserInfo(){
-        viewModel.getUserInfo()
-        viewModel.getUserListSearch()
-        viewModel.getUserFollowers()
-    }
 
     private fun navigationSetup() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

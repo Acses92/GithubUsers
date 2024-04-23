@@ -61,10 +61,16 @@ dependencies {
 
     implementation(Dependencies.AndroidX.androidCore)
     implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.AndroidX.recyclerView)
     implementation(Dependencies.UI.material)
+    implementation(Dependencies.Navigation.navigationUi)
+    implementation(Dependencies.Navigation.navigationFragment)
+    implementation(Dependencies.Navigation.navigationDynamic)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.jUnitExt)
     androidTestImplementation(Dependencies.Test.espresso)
     implementation(Dependencies.Hilt.hiltAndroid)
     kapt(Dependencies.Hilt.hiltCompiler)
+    implementation(Dependencies.UI.glide)
+    implementation(Dependencies.Debuging.timber)
 }

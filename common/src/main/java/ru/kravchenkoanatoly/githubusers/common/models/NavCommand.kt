@@ -1,4 +1,4 @@
-package ru.kravchenkoanatoly.githubusers.common
+package ru.kravchenkoanatoly.githubusers.common.models
 
 import android.os.Bundle
 import androidx.navigation.NavOptions

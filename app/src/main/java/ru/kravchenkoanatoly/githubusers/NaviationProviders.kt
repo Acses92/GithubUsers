@@ -1,6 +1,6 @@
 package ru.kravchenkoanatoly.githubusers
 
-import ru.kravchenkoanatoly.githubusers.common.NavCommand
+import ru.kravchenkoanatoly.githubusers.common.models.NavCommand
 import ru.kravchenkoanatoly.githubusers.detail.UserDetailNavigationProvider
 import ru.kravchenkoanatoly.githubusers.search.SearchNavigationProvider
 import javax.inject.Inject
