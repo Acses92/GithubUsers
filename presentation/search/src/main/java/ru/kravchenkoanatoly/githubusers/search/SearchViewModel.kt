@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import ru.kravchenkoanatoly.githubusers.common.models.ReloadableData
 import ru.kravchenkoanatoly.githubusers.common.models.Status
 import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
+import ru.kravchenkoanatoly.githubusers.useCases.DatabaseUseCase
 import ru.kravchenkoanatoly.githubusers.useCases.GithubSearchUseCase
 import ru.kravchenkoanatoly.githubusers.useCases.GithubUserUseCase
 import timber.log.Timber
@@ -23,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val githubSearchUseCase: GithubSearchUseCase,
-    private val githubUserUseCase: GithubUserUseCase
+    private val githubUserUseCase: GithubUserUseCase,
+    private val databaseUseCase: DatabaseUseCase
 ) : ViewModel() {
 
     private val _userListState = MutableStateFlow(
@@ -34,15 +36,14 @@ class SearchViewModel @Inject constructor(
     )
     val userListState = _userListState.asStateFlow()
 
+    init {
+        subscribeSearchResult()
+    }
+
     fun getUserListSearch(userName: String){
         viewModelScope.launch {
             githubSearchUseCase.searchUser(userName)
                 .flowOn(Dispatchers.IO)
-                .onEach {
-                    data -> _userListState.update {
-                        it.copy(data = data, status = Status.Idle)
-                    }
-                }
                 .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
                 .collect()
         }
@@ -56,11 +57,23 @@ class SearchViewModel @Inject constructor(
                     .flowOn(Dispatchers.IO)
                     .onEach {
                         Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString())
-
                     }
                     .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
                     .collect()
             }
+        }
+    }
+
+    private fun subscribeSearchResult() {
+        viewModelScope.launch {
+            databaseUseCase.subscribeSearchResult()
+                .flowOn(Dispatchers.IO)
+                .onEach { data -> _userListState.update {
+                    it.copy(data = data, status = Status.Idle)
+                }
+                }
+                .catch {  }
+                .collect()
         }
     }
 
