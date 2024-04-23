@@ -6,11 +6,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class GithubUserSearchDto(
     @Json(name = "avatar_url")
-    val avatarUrl: String?,
+    val avatarUrl: String,
     @Json(name = "events_url")
     val eventsUrl: String?,
     @Json(name = "followers_url")
-    val followersUrl: String?,
+    val followersUrl: String,
     @Json(name = "following_url")
     val followingUrl: String?,
     @Json(name = "gists_url")
@@ -20,9 +20,9 @@ data class GithubUserSearchDto(
     @Json(name = "html_url")
     val htmlUrl: String?,
     @Json(name = "id")
-    val id: Int?,
+    val id: Int,
     @Json(name = "login")
-    val login: String?,
+    val login: String,
     @Json(name = "node_id")
     val nodeId: String?,
     @Json(name = "organizations_url")

@@ -99,6 +99,15 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
     private fun searchViewListener() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(userName: String?): Boolean{
+                /**
+                 * прекрассный баг эмулятора, иллюстрирующий разработку под андроид
+                 * если вводить текст с реальной клавиатуры - метод вызывается дважды
+                 * если, с виртуальной клавитатуры эмулятора - один раз.
+                 * воспризводится на эмулятора api 30-32, mac и win
+                 * при наличии rateLimit'а в 60 запросов в час и страниуе в 30 записей
+                 * на ручки https://api.github.com/users/nnnn очень увлекательно
+                 *
+                 */
                 if(userName!=null){
                     viewModel.getUserListSearch(userName)
                 }
