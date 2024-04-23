@@ -17,14 +17,8 @@ class LaunchActivity : AppCompatActivity() {
         binding = LaunchActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navigationSetup()
-        getUserInfo()
     }
 
-    private fun getUserInfo(){
-        viewModel.getUserInfo()
-        viewModel.getUserListSearch()
-        viewModel.getUserFollowers()
-    }
 
     private fun navigationSetup() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

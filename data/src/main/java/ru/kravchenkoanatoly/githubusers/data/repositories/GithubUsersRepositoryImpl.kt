@@ -35,10 +35,7 @@ class GithubUsersRepositoryImpl @Inject constructor(
         .map {it.size}
         .catch { Timber.tag(GITHUB_USER_REPOSITORY_TAG).d("error = $it") }
 
-    override fun getUserResult(user: GithubUserInfoDomain): Flow<GithubUserInfoDomain>   {
-        val folowers = user.login?.let { getUserFollowers(it) }
-        return flowOf()
-    }
+
 
     companion object {
         const val GITHUB_USER_REPOSITORY_TAG = "GITHUB_USER_REPOSITORY_TAG"

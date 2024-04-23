@@ -7,6 +7,4 @@ interface GithubUsersRepository {
     fun getUserInfo(user: String): Flow<GithubUserInfoDomain>
 
     fun getUserFollowers(user: String): Flow<Int>
-
-    fun getUserResult(user: GithubUserInfoDomain): Flow<GithubUserInfoDomain>
 }
