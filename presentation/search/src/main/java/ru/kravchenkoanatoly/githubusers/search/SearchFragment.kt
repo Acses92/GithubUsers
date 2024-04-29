@@ -12,16 +12,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
 import ru.kravchenkoanatoly.githubusers.common.base.BaseFragment
 import ru.kravchenkoanatoly.githubusers.common.models.Status
+import ru.kravchenkoanatoly.githubusers.common.utils.PaginationScrollListener
 import ru.kravchenkoanatoly.githubusers.common.utils.hide
 import ru.kravchenkoanatoly.githubusers.common.utils.show
 import ru.kravchenkoanatoly.githubusers.search.databinding.SearchFragmentBinding
 
 @AndroidEntryPoint
-class SearchFragment: BaseFragment(R.layout.search_fragment) {
+class SearchFragment : BaseFragment(R.layout.search_fragment) {
     private var _binding: SearchFragmentBinding? = null
-    private val binding get()= _binding!!
+    private val binding get() = _binding!!
     private val viewModel by viewModels<SearchViewModel>()
     private lateinit var githubUsersAdapter: GithubUsersAdapter
+    var isLoading = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,33 +48,37 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
         _binding = null
     }
 
-    private fun observeState(){
-        viewModel.userListState.onEach { state->
-            when(state.status) {
+    private fun observeState() {
+        viewModel.userListState.onEach { state ->
+            when (state.status) {
                 is Status.Idle -> {
                     binding.progressBar.hide()
                     val data = state.data
-                    if(!data.isNullOrEmpty()) {
+                    if (!data.isNullOrEmpty()) {
                         binding.githubUserRecyclerView.show()
                         binding.requestInformationTextview.hide()
                         githubUsersAdapter.submitList(data)
 
-                    } else{
+                    } else {
                         binding.githubUserRecyclerView.hide()
                         githubUsersAdapter.submitList(null)
-                        binding.requestInformationTextview.text = getString(R.string.empty_result_text)
+                        binding.requestInformationTextview.text =
+                                getString(R.string.empty_result_text)
                         binding.requestInformationTextview.show()
                     }
+                    isLoading = false
                 }
 
                 is Status.Loading -> {
                     binding.progressBar.show()
                     binding.requestInformationTextview.hide()
+                    isLoading = true
                 }
 
                 is Status.Failure -> {
                     Toast.makeText(this.context, "Error", Toast.LENGTH_LONG)
                         .show()
+                    isLoading = false
 
                 }
 
@@ -88,7 +95,7 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
         githubUsersAdapter = GithubUsersAdapter(
             onUserClicked = viewModel::onUserClicked,
             onUserFollowers = viewModel::getUserFollowers
-            )
+        )
         with(binding.githubUserRecyclerView) {
             adapter = githubUsersAdapter
             layoutManager = LinearLayoutManager(context)
@@ -98,7 +105,7 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
 
     private fun searchViewListener() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(userName: String?): Boolean{
+            override fun onQueryTextSubmit(userName: String?): Boolean {
                 /**
                  * прекрассный баг эмулятора, иллюстрирующий разработку под андроид
                  * если вводить текст с реальной клавиатуры - метод вызывается дважды
@@ -108,11 +115,14 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
                  * на ручки https://api.github.com/users/nnnn очень увлекательно
                  *
                  */
-                if(userName!=null){
+                if (userName != null) {
+                    //добавить очистку бд при старте
                     viewModel.getUserListSearch(userName)
+                    viewModel.getMaxUsersFromRequest(userName)
                 }
                 return false
             }
+
             /**
              * реал-тайм поиск. так делать правильнее, но натыкаемся на рэйт лимиты
              * при этом, для авторизованных пользователей, они меньше
@@ -127,5 +137,28 @@ class SearchFragment: BaseFragment(R.layout.search_fragment) {
             }
 
         })
+    }
+
+    private fun setUpScrollListener() {
+        with(binding) {
+            githubUserRecyclerView.addOnScrollListener(object :
+                PaginationScrollListener(githubUserRecyclerView.layoutManager as LinearLayoutManager) {
+                override fun loadMoreItems() {
+                    TODO("Not yet implemented")
+                    //вызывать viewModel.getUserListSearch
+                }
+
+                override fun isLastPage(): Boolean {
+                    if (viewModel.maxPages == viewModel.currentPage) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+
+                override fun isLoading(): Boolean = isLoading
+            }
+            )
+        }
     }
 }
