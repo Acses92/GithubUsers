@@ -20,7 +20,8 @@ class GithubSearchRepositoryImpl @Inject constructor(
     override fun searchUser(userRequest: String, pageSize: Int, page: Int): Flow<Unit> = flow<Unit> {
         val items = githubApi.searchUsers(userRequest, pageSize,page).items
             if(items.isNotEmpty()){
-                items.onEach { appDatabase.githubSearchUserDao().deleteAll() }
+                items.onEach { //appDatabase.githubSearchUserDao().deleteAll()
+                }
                     .map { dto ->
                         dto?.toEntity() }
                     .forEach {

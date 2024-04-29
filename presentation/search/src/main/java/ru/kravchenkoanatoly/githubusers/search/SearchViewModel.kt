@@ -74,7 +74,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             databaseUseCase.subscribeSearchResult()
                 .flowOn(Dispatchers.IO)
-                .onStart { }
+                .onStart {  }
                 .onEach { data ->
                     _userListState.update {
                         it.copy(data = data, status = Status.Idle)
@@ -99,12 +99,22 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    fun viewModelClearRequestCache(){
+        Timber.tag(SEARCH_VIEW_MODEL_TAG).d("Dell call")
+        viewModelScope.launch {
+            databaseUseCase.dellSearchResultCache()
+                .flowOn(Dispatchers.IO)
+                .catch {  }
+                .collect()
+        }
+    }
+
     fun onUserClicked(user: GithubUserSearchDomain) {
 
     }
 
     companion object {
         const val SEARCH_VIEW_MODEL_TAG = "SEARCH_VIEW_MODEL_TAG"
-        const val PAGE_SIZE = 10
+        const val PAGE_SIZE = 12
     }
 }
