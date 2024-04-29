@@ -1,6 +1,7 @@
 package ru.kravchenkoanatoly.githubusers.data.repositories
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import ru.kravchenkoanatoly.githubusers.data.mappers.toDomain
 import ru.kravchenkoanatoly.githubusers.data.sources.database.AppDatabase
@@ -13,4 +14,11 @@ class DatabaseRepositoryImpl @Inject constructor(
 ):DatabaseRepository {
     override fun subscribeGithubUserSearch(): Flow<List<GithubUserSearchDomain>> = appDatabase.githubSearchUserDao().subscribeGithubUserSearch()
         .map { githubSearchEntity -> githubSearchEntity.map { it.toDomain() } }
+
+    override fun dellSearchResultCache(): Flow<Unit> = flow {
+        emit(appDatabase.githubSearchUserDao().deleteAll())
+    }
+
+
+
 }

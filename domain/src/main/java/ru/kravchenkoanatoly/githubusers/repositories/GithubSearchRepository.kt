@@ -1,8 +1,9 @@
 package ru.kravchenkoanatoly.githubusers.repositories
 
 import kotlinx.coroutines.flow.Flow
-import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
 
 interface GithubSearchRepository {
-    fun searchUser(userRequest: String): Flow<Unit>
+    fun searchUser(userRequest: String, pageSize: Int, page: Int): Flow<Unit>
+
+    fun getMaxUsersFromRequest(userRequest: String): Flow<Int>
 }

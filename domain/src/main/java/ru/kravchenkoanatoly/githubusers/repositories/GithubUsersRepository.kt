@@ -6,5 +6,5 @@ import ru.kravchenkoanatoly.githubusers.models.GithubUserInfoDomain
 interface GithubUsersRepository {
     fun getUserInfo(user: String): Flow<GithubUserInfoDomain>
 
-    fun getUserFollowers(user: String): Flow<Int>
+    fun getUserFollowers(user: String, pageSize: Int): Flow<Int>
 }

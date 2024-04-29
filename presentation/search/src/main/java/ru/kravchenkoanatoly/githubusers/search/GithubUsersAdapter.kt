@@ -12,7 +12,7 @@ import ru.kravchenkoanatoly.githubusers.search.databinding.GithubUserItemBinding
 class GithubUsersAdapter(
     private val onUserClicked: (GithubUserSearchDomain) -> Unit,
     private val onUserFollowers: (GithubUserSearchDomain) -> Unit,
-): ListAdapter<GithubUserSearchDomain, GithubUsersAdapter.ViewHolder>(
+) : ListAdapter<GithubUserSearchDomain, GithubUsersAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<GithubUserSearchDomain>() {
         override fun areContentsTheSame(
             oldItem: GithubUserSearchDomain,
@@ -26,7 +26,9 @@ class GithubUsersAdapter(
     }
 
 ) {
-    inner class ViewHolder(val binding: GithubUserItemBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: GithubUserItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -42,10 +44,12 @@ class GithubUsersAdapter(
 
     override fun onBindViewHolder(holder: GithubUsersAdapter.ViewHolder, position: Int) {
         val context = holder.itemView.context
-        with(holder.binding){
+        with(holder.binding) {
             val item = getItem(position)
             userNameTextView.text = item.login
-            onUserFollowers(item)
+            if (!item.followersLoad) {
+                onUserFollowers(item)
+            }
             numberOfFollowers.text = item.followersNumber.toString()
             Glide.with(context).load(item.avatarUrl).circleCrop()
                 .error(R.drawable.avatar_placeholder)
@@ -53,7 +57,6 @@ class GithubUsersAdapter(
 
         }
     }
-
 
 
 }

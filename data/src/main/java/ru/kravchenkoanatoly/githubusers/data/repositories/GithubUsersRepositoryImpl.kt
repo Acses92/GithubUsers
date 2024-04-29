@@ -23,11 +23,11 @@ class GithubUsersRepositoryImpl @Inject constructor(
         .map { dto -> dto.toDomain() }
         .catch { Timber.tag(GITHUB_USER_REPOSITORY_TAG).d(it) }
 
-    override fun getUserFollowers(user: String): Flow<Int> = flow {
-        emit(githubApi.getUserFollower(user).size)
+    override fun getUserFollowers(user: String, pageSize: Int): Flow<Int> = flow {
+        emit(githubApi.getUserFollower(user, pageSize).size)
     }
         .onEach {
-            appDatabase.githubSearchUserDao().updateFollower(userName = user, followers = it )
+            appDatabase.githubSearchUserDao().updateFollower(userName = user, followers = it, followersLoad = true )
         }
         .catch {  }
 

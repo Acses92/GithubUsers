@@ -12,4 +12,5 @@ data class GithubSearchUserEntity(
     val followersUrl: String,
     val login: String,
     var followersNumber: Int,
+    var followersLoad: Boolean
 )

@@ -7,4 +7,6 @@ class DatabaseUseCase @Inject constructor(
     private val repository: DatabaseRepository
 ){
     fun subscribeSearchResult() = repository.subscribeGithubUserSearch()
+
+    fun dellSearchResultCache() = repository.dellSearchResultCache()
 }
