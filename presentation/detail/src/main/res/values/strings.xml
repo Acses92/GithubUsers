@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_id_header"> User id</string>
+    <string name="username_header">UserName</string>
+
+</resources>
