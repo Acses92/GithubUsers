@@ -52,6 +52,11 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
+        }
+    }
 
 }
 
@@ -62,7 +67,12 @@ dependencies {
 
     implementation(Dependencies.AndroidX.androidCore)
     implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.AndroidX.viewModel)
+    implementation(Dependencies.AndroidX.fragmentKtx)
     implementation(Dependencies.UI.material)
+    implementation(Dependencies.Core.coroutineCore)
+    implementation(Dependencies.Navigation.navigationUi)
+    implementation(Dependencies.Navigation.navigationFragment)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.jUnitExt)
     androidTestImplementation(Dependencies.Test.espresso)

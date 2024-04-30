@@ -55,6 +55,9 @@ class GithubUsersAdapter(
                 .error(R.drawable.avatar_placeholder)
                 .placeholder(R.drawable.avatar_placeholder).into(avatarImageView)
 
+            root.setOnClickListener {
+                onUserClicked(item)
+            }
         }
     }
 

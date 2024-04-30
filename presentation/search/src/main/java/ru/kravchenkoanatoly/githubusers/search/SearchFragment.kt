@@ -16,6 +16,7 @@ import ru.kravchenkoanatoly.githubusers.common.utils.PaginationScrollListener
 import ru.kravchenkoanatoly.githubusers.common.utils.hide
 import ru.kravchenkoanatoly.githubusers.common.utils.show
 import ru.kravchenkoanatoly.githubusers.search.databinding.SearchFragmentBinding
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment(R.layout.search_fragment) {
@@ -25,6 +26,8 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
     private lateinit var githubUsersAdapter: GithubUsersAdapter
     var isLoading = false
     var userName: String = ""
+    @Inject
+    lateinit var searchFragmentNavigationProvider: SearchNavigationProvider
 
 
     override fun onCreateView(
@@ -41,7 +44,8 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
         searchViewListener()
         observeState()
         setupRecyclerAdapter()
-        setUpScrollListener()
+        //setUpScrollListener()
+        observeAction()
     }
 
 
@@ -165,5 +169,23 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
             }
             )
         }
+    }
+
+    private fun observeAction(){
+        viewModel.action.onEach {action ->
+            when(action) {
+                is GithubUserAction.OnClickedUser -> {
+                    navigate(searchFragmentNavigationProvider.goToUserDetail(
+                        id = action.id,
+                        userName = action.userName,
+                        userAvatar = action.userAvatar
+                    ))
+
+                }
+                is GithubUserAction.Error -> {
+
+                }
+            }
+        }.repeatOnResumed()
     }
 }

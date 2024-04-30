@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.kravchenkoanatoly.githubusers.common.models.ReloadableData
 import ru.kravchenkoanatoly.githubusers.common.models.Status
+import ru.kravchenkoanatoly.githubusers.common.utils.OnceFlow
 import ru.kravchenkoanatoly.githubusers.models.GithubUserSearchDomain
 import ru.kravchenkoanatoly.githubusers.useCases.DatabaseUseCase
 import ru.kravchenkoanatoly.githubusers.useCases.GithubSearchUseCase
@@ -32,6 +34,9 @@ class SearchViewModel @Inject constructor(
 
     var currentPage = 1
     var maxPages = 0
+
+    private val _action = OnceFlow<GithubUserAction>()
+    val action = _action.asSharedFlow()
 
     private val _userListState = MutableStateFlow(
         ReloadableData<List<GithubUserSearchDomain>>(
@@ -110,6 +115,13 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onUserClicked(user: GithubUserSearchDomain) {
+        _action.tryEmit(
+            GithubUserAction.OnClickedUser(
+                user.id,
+                user.login,
+                user.avatarUrl
+            )
+        )
 
     }
 
