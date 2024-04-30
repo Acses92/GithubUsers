@@ -87,12 +87,6 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                     isLoading = false
 
                 }
-
-                is Status.EmptyState -> {
-                    binding.progressBar.hide()
-                    binding.requestInformationTextview.text = getString(R.string.send_request_text)
-                    binding.requestInformationTextview.show()
-                }
             }
         }.repeatOnCreated()
     }

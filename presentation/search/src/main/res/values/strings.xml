@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_user_name"> Default username</string>
-    <string name="default_followers_number">5</string>
+    <string name="user_name_text_view"> Default username</string>
+    <string name="followers_number_text_view">Кол-во подписчиков: %1$d</string>
     <string name="send_request_text">Введите запрос</string>
     <string name="empty_result_text">Ничего не найдено</string>
 </resources>
