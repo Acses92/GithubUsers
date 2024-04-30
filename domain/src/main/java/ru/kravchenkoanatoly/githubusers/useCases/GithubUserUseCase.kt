@@ -9,4 +9,6 @@ class GithubUserUseCase @Inject constructor(
     fun getUserByUsername(username: String) = repository.getUserInfo(username)
 
     fun getUserFollowers(username: String, pageSize: Int) = repository.getUserFollowers(username, pageSize)
+
+    fun getUserRepositories(username: String) = repository.getUserRepositories(username)
 }

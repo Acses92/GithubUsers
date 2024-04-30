@@ -8,17 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 import ru.kravchenkoanatoly.githubusers.common.base.BaseFragment
+import ru.kravchenkoanatoly.githubusers.common.models.Status
 import ru.kravchenkoanatoly.githubusers.common.utils.args
 import ru.kravchenkoanatoly.githubusers.detail.databinding.DetailFragmentBinding
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserDetailFragment: BaseFragment(R.layout.detail_fragment) {
-    companion object{
+class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
+    companion object {
         const val USERNAME_DETAIL_FRAGMENT_KEY = "USERNAME_DETAIL_FRAGMENT_KEY"
         const val USER_AVATAR_DETAIL_FRAGMENT_KEY = "USER_AVATAR_DETAIL_FRAGMENT_KEY"
         const val USER_ID_DETAIL_FRAGMENT_KEY = "USER_ID_DETAIL_FRAGMENT_KEY"
@@ -30,7 +33,7 @@ class UserDetailFragment: BaseFragment(R.layout.detail_fragment) {
     private val userName: String by args<String>(USERNAME_DETAIL_FRAGMENT_KEY)
     private val userId: Int by args<Int>(USER_ID_DETAIL_FRAGMENT_KEY)
     private val userAvatar: String by args<String>(USER_AVATAR_DETAIL_FRAGMENT_KEY)
-
+    private lateinit var repositoriesAdapter: RepositoriesAdapter
 
     @Inject
     internal lateinit var factory: UserDetailViewModelFactory
@@ -38,7 +41,7 @@ class UserDetailFragment: BaseFragment(R.layout.detail_fragment) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(this){
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()
         }
     }
@@ -61,10 +64,13 @@ class UserDetailFragment: BaseFragment(R.layout.detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         Timber.tag(USER_DETAIL_FRAGMENT_TAG).d(userName)
         userInfoFill()
+        viewModel.getUsersRepositories()
+        setupAdapter()
+        repositoriesObserver()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun userInfoFill(){
+    private fun userInfoFill() {
         with(binding.userInfo) {
             userIdTextview.text = "UserId = ${userId.toString()}"
             userNameTextview.text = "Username: $userName"
@@ -75,6 +81,31 @@ class UserDetailFragment: BaseFragment(R.layout.detail_fragment) {
             }
         }
 
+    }
+
+    private fun setupAdapter(){
+        repositoriesAdapter = RepositoriesAdapter()
+        with(binding.usersProjectRecyclerView){
+            adapter = repositoriesAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+    }
+
+    private fun repositoriesObserver(){
+        viewModel.repositoriesList.onEach { state->
+            when(state.status) {
+                is Status.Idle -> {
+                    val data = state.data
+                    if(!data.isNullOrEmpty()) {
+                        repositoriesAdapter.submitList(data)
+                    }
+                }
+                else -> {
+
+                }
+            }
+        }.repeatOnStarted()
     }
 
 

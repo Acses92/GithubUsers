@@ -5,6 +5,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.kravchenkoanatoly.githubusers.data.models.dto.response.GithubUserInfoDto
 import ru.kravchenkoanatoly.githubusers.data.models.dto.response.GithubUserSearchDto
+import ru.kravchenkoanatoly.githubusers.data.models.dto.response.UserRepositoriesDtoItem
 import ru.kravchenkoanatoly.githubusers.data.models.dto.response.UsersSearchResponseDto
 
 interface GithubApi {
@@ -26,4 +27,9 @@ interface GithubApi {
     suspend fun getUserInfo(
         @Path("user") user: String
     ): GithubUserInfoDto
+
+    @GET("/users/{user}/repos")
+    suspend fun getUserRepositories(
+        @Path("user") user: String
+    ): List<UserRepositoriesDtoItem>
 }
