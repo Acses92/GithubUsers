@@ -1,5 +1,7 @@
 package ru.kravchenkoanatoly.githubusers.models
 
+import java.io.Serializable
+
 data class GithubUserInfoDomain(
     val avatarUrl: String?,
     val bio: Any?,
@@ -35,4 +37,4 @@ data class GithubUserInfoDomain(
     val type: String?,
     val updatedAt: String?,
     val url: String?
-)
+): Serializable

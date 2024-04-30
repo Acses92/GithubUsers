@@ -9,6 +9,7 @@ import ru.kravchenkoanatoly.githubusers.data.mappers.toDomain
 import ru.kravchenkoanatoly.githubusers.data.sources.database.AppDatabase
 import ru.kravchenkoanatoly.githubusers.data.sources.remote.GithubApi
 import ru.kravchenkoanatoly.githubusers.models.GithubUserInfoDomain
+import ru.kravchenkoanatoly.githubusers.models.UserRepositoriesDomain
 import ru.kravchenkoanatoly.githubusers.repositories.GithubUsersRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,6 +30,12 @@ class GithubUsersRepositoryImpl @Inject constructor(
         .onEach {
             appDatabase.githubSearchUserDao().updateFollower(userName = user, followers = it, followersLoad = true )
         }
+        .catch {  }
+
+    override fun getUserRepositories(user: String): Flow<List<UserRepositoriesDomain>> = flow {
+        emit(githubApi.getUserRepositories(user))
+    }
+        .map { dto -> dto.map { it.toDomain() } }
         .catch {  }
 
 
