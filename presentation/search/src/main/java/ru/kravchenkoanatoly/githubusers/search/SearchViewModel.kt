@@ -55,7 +55,11 @@ class SearchViewModel @Inject constructor(
             githubSearchUseCase.searchUser(userName, PAGE_SIZE, currentPage)
                 .flowOn(Dispatchers.IO)
                 .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
-                .onCompletion { currentPage++ }
+                .onCompletion {
+                    if(currentPage<maxPages) {
+                        currentPage++
+                    }
+                }
                 .collect()
         }
     }

@@ -1,6 +1,5 @@
 package ru.kravchenkoanatoly.githubusers.detail
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +14,8 @@ import kotlinx.coroutines.flow.onEach
 import ru.kravchenkoanatoly.githubusers.common.base.BaseFragment
 import ru.kravchenkoanatoly.githubusers.common.models.Status
 import ru.kravchenkoanatoly.githubusers.common.utils.args
+import ru.kravchenkoanatoly.githubusers.common.utils.hide
+import ru.kravchenkoanatoly.githubusers.common.utils.show
 import ru.kravchenkoanatoly.githubusers.detail.databinding.DetailFragmentBinding
 import timber.log.Timber
 import javax.inject.Inject
@@ -69,11 +70,10 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
         repositoriesObserver()
     }
 
-    @SuppressLint("SetTextI18n")
     private fun userInfoFill() {
         with(binding.userInfo) {
-            userIdTextview.text = "UserId = ${userId.toString()}"
-            userNameTextview.text = "Username: $userName"
+            userIdTextview.text = getString(R.string.user_id_text_view, userId)
+            userNameTextview.text = getString(R.string.user_name_text_view, userName)
             context?.let {
                 Glide.with(it).load(userAvatar).centerCrop()
                     .error(R.drawable.avatar)
@@ -83,26 +83,28 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
 
     }
 
-    private fun setupAdapter(){
+    private fun setupAdapter() {
         repositoriesAdapter = RepositoriesAdapter()
-        with(binding.usersProjectRecyclerView){
+        with(binding.usersProjectRecyclerView) {
             adapter = repositoriesAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
     }
 
-    private fun repositoriesObserver(){
-        viewModel.repositoriesList.onEach { state->
-            when(state.status) {
+    private fun repositoriesObserver() {
+        viewModel.repositoriesList.onEach { state ->
+            when (state.status) {
                 is Status.Idle -> {
+                    binding.emptyRepositoriesTextView.hide()
                     val data = state.data
-                    if(!data.isNullOrEmpty()) {
+                    if (!data.isNullOrEmpty()) {
                         repositoriesAdapter.submitList(data)
                     }
                 }
-                else -> {
 
+                else -> {
+                    binding.emptyRepositoriesTextView.show()
                 }
             }
         }.repeatOnStarted()

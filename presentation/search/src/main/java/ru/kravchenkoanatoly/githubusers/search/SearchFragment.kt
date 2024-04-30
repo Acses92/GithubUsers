@@ -123,7 +123,6 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                  */
                 if (text != null) {
                     userName = text
-                    //добавить очистку бд при старте
                     viewModel.viewModelClearRequestCache()
                     viewModel.getUserListSearch(userName)
                     viewModel.getMaxUsersFromRequest(userName)

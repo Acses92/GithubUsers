@@ -29,4 +29,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_info" />
 
+    <TextView
+        android:id="@+id/empty_repositories_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_repository_text_view"
+        android:textAppearance="@style/DefaultMedium.Primary"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/users_project_recycler_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/users_project_recycler_view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

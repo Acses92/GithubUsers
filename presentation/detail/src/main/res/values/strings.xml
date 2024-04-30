@@ -2,5 +2,17 @@
 <resources>
     <string name="user_id_header"> User id</string>
     <string name="username_header">UserName</string>
-
+    <string name="repository_name_text_view">Default repository name</string>
+    <string name="description_text_view">Длинное описание проекта, которое может быть в проекте, но
+    это не точно</string>
+    <string name="last_push_text_view">Последний пуш %1$s</string>
+    <string name="empty_description_text_view">Описание отсуствует</string>
+    <string name="default_branch_text_view">Ветка по умолчанию: %1$s</string>
+    <string name="default_language_text_view">Язык програмиирования: %1$s</string>
+    <string name="default_language_empty_text_view">Язык програмиирования не указан</string>
+    <string name="forks_numbers_text_view">Кол-во форков: %1$d</string>
+    <string name="stars_numbers_text_view">Кол-во звёзд: %1$d</string>
+    <string name="user_id_text_view">User ID: %1$d</string>
+    <string name="user_name_text_view">Username: %1$s</string>
+    <string name="empty_repository_text_view">У пользователя отсутствуют репозитории</string>
 </resources>
