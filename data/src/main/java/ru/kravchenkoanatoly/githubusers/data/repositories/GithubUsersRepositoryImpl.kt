@@ -35,8 +35,11 @@ class GithubUsersRepositoryImpl @Inject constructor(
         }
         .catch { errorParser.invoke(it) }
 
-    override fun getUserRepositories(user: String): Flow<List<UserRepositoriesDomain>> = flow {
-        emit(githubApi.getUserRepositories(user))
+    override fun getUserRepositories(
+        user: String,
+        pageSize: Int
+    ): Flow<List<UserRepositoriesDomain>> = flow {
+        emit(githubApi.getUserRepositories(user, pageSize))
     }
         .map { dto -> dto.map { it.toDomain() } }
         .catch { errorParser.invoke(it) }
