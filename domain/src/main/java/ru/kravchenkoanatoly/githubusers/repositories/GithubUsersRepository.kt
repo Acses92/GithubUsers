@@ -9,5 +9,5 @@ interface GithubUsersRepository {
 
     fun getUserFollowers(user: String, pageSize: Int): Flow<Int>
 
-    fun getUserRepositories(user: String): Flow<List<UserRepositoriesDomain>>
+    fun getUserRepositories(user: String, pageSize: Int): Flow<List<UserRepositoriesDomain>>
 }
