@@ -9,7 +9,7 @@
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="@dimen/common_spacing_32"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,10 +17,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/github_user_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
+        android:layout_height="@dimen/common_spacing_0"
+        android:layout_marginStart="@dimen/common_spacing_0"
+        android:layout_marginTop="@dimen/common_spacing_8"
+        android:layout_marginEnd="@dimen/common_spacing_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send_request_text"
+        android:textAppearance="@style/DefaultMedium.Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
