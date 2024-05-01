@@ -2,10 +2,12 @@
   - Kotlin
   - MVVM + Clean Architecture
   - Coroutines+Flow
+  - Retrofit+OKHHTP
   - Navigation components + custom argument delegate
   - HILT
   - ROOM
   - Glide
+  - Timber
 
 ## Done
 Многомудльный проект (в связи с тем, что проект не большой, разделение на модули Data, Domain, Presentation, а не использование фича-модулей). 
