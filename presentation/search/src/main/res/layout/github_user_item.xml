@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/github_user_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingDefaultResource">
+
+    <ImageView
+        android:id="@+id/avatar_image_view"
+        android:layout_width="@dimen/common_spacing_60"
+        android:layout_height="@dimen/common_spacing_60"
+        android:layout_marginStart="@dimen/common_spacing_8"
+        android:layout_marginTop="@dimen/common_spacing_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/avatar_placeholder" />
+
+    <TextView
+        android:id="@+id/user_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing_16"
+        android:layout_marginTop="@dimen/common_spacing_8"
+        android:textAppearance="@style/DefaultHeader.Primary"
+        android:text="@string/user_name_text_view"
+        app:layout_constraintStart_toEndOf="@+id/avatar_image_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/number_of_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing_16"
+        android:layout_marginTop="@dimen/common_spacing_8"
+        android:textAppearance="@style/DefaultMedium.Primary"
+        android:text="@string/followers_number_text_view"
+        app:layout_constraintStart_toEndOf="@+id/avatar_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DefaultHeader">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="lineHeight">30sp</item>
+    </style>
+
+    <style name="DefaultMedium">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="lineHeight">25sp</item>
+    </style>
+
+    <style name="DefaultSmall">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="DefaultHeader.Primary">
+        <item name="android:textColor">@color/dark_carbone</item>
+    </style>
+
+    <style name="DefaultMedium.Primary">
+        <item name="android:textColor">@color/dark_carbone</item>
+    </style>
+
+    <color name="DefaultMedium.Second">
+        <item name="android:textColor">@color/dark_cloud_gray</item>
+    </color>
+
+    <style name="DefaultSmall.Primary">
+        <item name="android:textColor">@color/dark_carbone</item>
+    </style>
+
+    <color name="DefaultSmall.Secondary">
+        <item name="android:textColor">@color/dark_cloud_gray</item>
+    </color>
+
+</resources>

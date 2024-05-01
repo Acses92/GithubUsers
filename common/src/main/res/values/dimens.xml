@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_spacing_60">60dp</dimen>
+    <dimen name="common_spacing_50">50dp</dimen>
+    <dimen name="common_spacing_48">48dp</dimen>
+    <dimen name="common_spacing_40">40dp</dimen>
+    <dimen name="common_spacing_36">36dp</dimen>
+    <dimen name="common_spacing_32">32dp</dimen>
+    <dimen name="common_spacing_30">30dp</dimen>
+    <dimen name="common_spacing_25">25dp</dimen>
+    <dimen name="common_spacing_24">24dp</dimen>
+    <dimen name="common_spacing_22">22dp</dimen>
+    <dimen name="common_spacing_20">20dp</dimen>
+    <dimen name="common_spacing_19">19dp</dimen>
+    <dimen name="common_spacing_17">17dp</dimen>
+    <dimen name="common_spacing_16">16dp</dimen>
+    <dimen name="common_spacing_15">15dp</dimen>
+    <dimen name="common_spacing_12">12dp</dimen>
+    <dimen name="common_spacing_10">10dp</dimen>
+    <dimen name="common_spacing_8">8dp</dimen>
+    <dimen name="common_spacing_5">5dp</dimen>
+    <dimen name="common_spacing_6">6dp</dimen>
+    <dimen name="common_spacing_4">4dp</dimen>
+    <dimen name="common_spacing_0">0dp</dimen>
+</resources>
