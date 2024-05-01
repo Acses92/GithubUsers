@@ -54,9 +54,9 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             githubSearchUseCase.searchUser(userName, PAGE_SIZE, currentPage)
                 .flowOn(Dispatchers.IO)
-                .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
+                .catch { _action.tryEmit(GithubUserAction.Error(it.message.toString()))}
                 .onCompletion {
-                    if(currentPage<maxPages) {
+                    if (currentPage < maxPages) {
                         currentPage++
                     }
                 }
@@ -73,7 +73,7 @@ class SearchViewModel @Inject constructor(
                     .onEach {
                         Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString())
                     }
-                    .catch { Timber.tag(SEARCH_VIEW_MODEL_TAG).d(it.toString()) }
+                    .catch { _action.tryEmit(GithubUserAction.Error(it.message.toString())) }
                     .collect()
             }
         }
@@ -83,13 +83,13 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             databaseUseCase.subscribeSearchResult()
                 .flowOn(Dispatchers.IO)
-                .onStart {  }
+                .onStart { }
                 .onEach { data ->
                     _userListState.update {
                         it.copy(data = data, status = Status.Idle)
                     }
                 }
-                .catch { }
+                .catch { _action.tryEmit(GithubUserAction.Error(it.message.toString())) }
                 .collect()
         }
     }
@@ -103,17 +103,17 @@ class SearchViewModel @Inject constructor(
                     maxPages = it / PAGE_SIZE
                     maxPages = if (it % PAGE_SIZE == 0) maxPages else (maxPages + 1)
                 }
-                .catch { }
+                .catch { _action.tryEmit(GithubUserAction.Error(it.message.toString()))  }
                 .collect()
         }
     }
 
-    fun viewModelClearRequestCache(){
+    fun viewModelClearRequestCache() {
         Timber.tag(SEARCH_VIEW_MODEL_TAG).d("Dell call")
         viewModelScope.launch {
             databaseUseCase.dellSearchResultCache()
                 .flowOn(Dispatchers.IO)
-                .catch {  }
+                .catch { _action.tryEmit(GithubUserAction.Error(it.message.toString()))  }
                 .collect()
         }
     }

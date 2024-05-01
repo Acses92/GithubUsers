@@ -38,7 +38,7 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
 
     @Inject
     internal lateinit var factory: UserDetailViewModelFactory
-    private val viewModel: UserDetailViewModel by lazy { factory.get(userName, userAvatar, userId) }
+    private val viewModel: UserDetailViewModel by lazy { factory.get(userName) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,14 +73,13 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
     private fun userInfoFill() {
         with(binding.userInfo) {
             userIdTextview.text = getString(R.string.user_id_text_view, userId)
-            userNameTextview.text = getString(R.string.user_name_text_view, userName)
+            userNameTextview.text = userName
             context?.let {
                 Glide.with(it).load(userAvatar).centerCrop()
                     .error(R.drawable.avatar)
                     .placeholder(R.drawable.avatar).into(avatarImageView)
             }
         }
-
     }
 
     private fun setupAdapter() {

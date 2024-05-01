@@ -21,8 +21,6 @@ import timber.log.Timber
 
 class UserDetailViewModel @AssistedInject constructor(
     @Assisted("userName") private val userName: String,
-    @Assisted("id") private val id: Int,
-    @Assisted("userAvatar") private val userAvatar: String,
     private val usersUseCase: GithubUserUseCase
 ) : ViewModel() {
     companion object {
@@ -36,6 +34,7 @@ class UserDetailViewModel @AssistedInject constructor(
         )
     )
     val repositoriesList = _repositoriesListState.asStateFlow()
+
 
     fun getUsersRepositories() {
         viewModelScope.launch {
