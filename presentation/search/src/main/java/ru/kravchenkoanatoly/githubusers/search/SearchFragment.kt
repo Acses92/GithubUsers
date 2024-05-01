@@ -120,7 +120,7 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                     userName = text
                     viewModel.viewModelClearRequestCache()
                     viewModel.getUserListSearch(userName)
-                    viewModel.getMaxUsersFromRequest(userName)
+                    //viewModel.getMaxUsersFromRequest(userName)
                 }
                 return false
             }
@@ -132,8 +132,11 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
              */
             override fun onQueryTextChange(userName: String?): Boolean {
                 /*
-                if(userName!=null){
+                if(text!=null){
+                    userName = text
+                    viewModel.viewModelClearRequestCache()
                     viewModel.getUserListSearch(userName)
+                    viewModel.getMaxUsersFromRequest(userName)
                 }*/
                 return false
             }
@@ -183,6 +186,6 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                     Toast.makeText(requireContext(),action.message, Toast.LENGTH_LONG).show()
                 }
             }
-        }.repeatOnResumed()
+        }.repeatOnCreated()
     }
 }

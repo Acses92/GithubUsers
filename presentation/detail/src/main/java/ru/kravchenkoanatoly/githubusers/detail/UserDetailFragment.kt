@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,6 +69,7 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
         viewModel.getUsersRepositories()
         setupAdapter()
         repositoriesObserver()
+        actionsObserver()
     }
 
     private fun userInfoFill() {
@@ -106,7 +108,17 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
                     binding.emptyRepositoriesTextView.show()
                 }
             }
-        }.repeatOnStarted()
+        }.repeatOnCreated()
+    }
+
+    private fun actionsObserver(){
+        viewModel.userDetailAction.onEach { action ->
+            when(action) {
+                is UserDetailAction.Error -> {
+                    Toast.makeText(requireContext(), action.messages, Toast.LENGTH_LONG).show()
+                }
+            }
+        }.repeatOnCreated()
     }
 
 
