@@ -30,6 +30,7 @@ interface GithubApi {
 
     @GET("/users/{user}/repos")
     suspend fun getUserRepositories(
-        @Path("user") user: String
+        @Path("user") user: String,
+        @Query("per_page") pageSize: Int?,
     ): List<UserRepositoriesDtoItem>
 }

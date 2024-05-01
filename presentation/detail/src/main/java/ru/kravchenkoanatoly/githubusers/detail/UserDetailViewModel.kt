@@ -43,7 +43,7 @@ class UserDetailViewModel @AssistedInject constructor(
 
     fun getUsersRepositories() {
         viewModelScope.launch {
-            usersUseCase.getUserRepositories(userName)
+            usersUseCase.getUserRepositories(userName, pageSize = 100)
                 .flowOn(Dispatchers.IO)
                 .onEach { data ->
                     _repositoriesListState.update {
