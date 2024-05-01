@@ -50,7 +50,11 @@ class GithubUsersAdapter(
             if (!item.followersLoad) {
                 onUserFollowers(item)
             }
-            numberOfFollowers.text = item.followersNumber.toString()
+            if(item.followersNumber <100){
+                numberOfFollowers.text = context.getString(R.string.followers_number_text_view, item.followersNumber)
+            } else {
+                numberOfFollowers.text = context.getString(R.string.followers_number_over_text_view, item.followersNumber)
+            }
             Glide.with(context).load(item.avatarUrl).circleCrop()
                 .error(R.drawable.avatar_placeholder)
                 .placeholder(R.drawable.avatar_placeholder).into(avatarImageView)

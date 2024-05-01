@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
 
     @Inject
     internal lateinit var factory: UserDetailViewModelFactory
-    private val viewModel: UserDetailViewModel by lazy { factory.get(userName, userAvatar, userId) }
+    private val viewModel: UserDetailViewModel by lazy { factory.get(userName) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,19 +69,19 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
         viewModel.getUsersRepositories()
         setupAdapter()
         repositoriesObserver()
+        actionsObserver()
     }
 
     private fun userInfoFill() {
         with(binding.userInfo) {
             userIdTextview.text = getString(R.string.user_id_text_view, userId)
-            userNameTextview.text = getString(R.string.user_name_text_view, userName)
+            userNameTextview.text = userName
             context?.let {
                 Glide.with(it).load(userAvatar).centerCrop()
                     .error(R.drawable.avatar)
                     .placeholder(R.drawable.avatar).into(avatarImageView)
             }
         }
-
     }
 
     private fun setupAdapter() {
@@ -107,7 +108,17 @@ class UserDetailFragment : BaseFragment(R.layout.detail_fragment) {
                     binding.emptyRepositoriesTextView.show()
                 }
             }
-        }.repeatOnStarted()
+        }.repeatOnCreated()
+    }
+
+    private fun actionsObserver(){
+        viewModel.userDetailAction.onEach { action ->
+            when(action) {
+                is UserDetailAction.Error -> {
+                    Toast.makeText(requireContext(), action.messages, Toast.LENGTH_LONG).show()
+                }
+            }
+        }.repeatOnCreated()
     }
 
 

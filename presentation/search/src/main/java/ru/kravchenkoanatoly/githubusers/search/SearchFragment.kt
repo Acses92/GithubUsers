@@ -26,6 +26,7 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
     private lateinit var githubUsersAdapter: GithubUsersAdapter
     var isLoading = false
     var userName: String = ""
+
     @Inject
     lateinit var searchFragmentNavigationProvider: SearchNavigationProvider
 
@@ -41,9 +42,9 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerAdapter()
         searchViewListener()
         observeState()
-        setupRecyclerAdapter()
         //setUpScrollListener()
         observeAction()
     }
@@ -87,12 +88,6 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                     isLoading = false
 
                 }
-
-                is Status.EmptyState -> {
-                    binding.progressBar.hide()
-                    binding.requestInformationTextview.text = getString(R.string.send_request_text)
-                    binding.requestInformationTextview.show()
-                }
             }
         }.repeatOnCreated()
     }
@@ -125,7 +120,7 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
                     userName = text
                     viewModel.viewModelClearRequestCache()
                     viewModel.getUserListSearch(userName)
-                    viewModel.getMaxUsersFromRequest(userName)
+                    //viewModel.getMaxUsersFromRequest(userName)
                 }
                 return false
             }
@@ -137,8 +132,11 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
              */
             override fun onQueryTextChange(userName: String?): Boolean {
                 /*
-                if(userName!=null){
+                if(text!=null){
+                    userName = text
+                    viewModel.viewModelClearRequestCache()
                     viewModel.getUserListSearch(userName)
+                    viewModel.getMaxUsersFromRequest(userName)
                 }*/
                 return false
             }
@@ -170,21 +168,24 @@ class SearchFragment : BaseFragment(R.layout.search_fragment) {
         }
     }
 
-    private fun observeAction(){
-        viewModel.action.onEach {action ->
-            when(action) {
+    private fun observeAction() {
+        viewModel.action.onEach { action ->
+            when (action) {
                 is GithubUserAction.OnClickedUser -> {
-                    navigate(searchFragmentNavigationProvider.goToUserDetail(
-                        id = action.id,
-                        userName = action.userName,
-                        userAvatar = action.userAvatar
-                    ))
+                    navigate(
+                        searchFragmentNavigationProvider.goToUserDetail(
+                            id = action.id,
+                            userName = action.userName,
+                            userAvatar = action.userAvatar
+                        )
+                    )
 
                 }
-                is GithubUserAction.Error -> {
 
+                is GithubUserAction.Error -> {
+                    Toast.makeText(requireContext(),action.message, Toast.LENGTH_LONG).show()
                 }
             }
-        }.repeatOnResumed()
+        }.repeatOnCreated()
     }
 }

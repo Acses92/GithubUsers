@@ -11,14 +11,12 @@ import javax.inject.Inject
 
 class DatabaseRepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase
-):DatabaseRepository {
-    override fun subscribeGithubUserSearch(): Flow<List<GithubUserSearchDomain>> = appDatabase.githubSearchUserDao().subscribeGithubUserSearch()
-        .map { githubSearchEntity -> githubSearchEntity.map { it.toDomain() } }
+) : DatabaseRepository {
+    override fun subscribeGithubUserSearch(): Flow<List<GithubUserSearchDomain>> =
+            appDatabase.githubSearchUserDao().subscribeGithubUserSearch()
+                .map { githubSearchEntity -> githubSearchEntity.map { it.toDomain() } }
 
     override fun dellSearchResultCache(): Flow<Unit> = flow {
         emit(appDatabase.githubSearchUserDao().deleteAll())
     }
-
-
-
 }
